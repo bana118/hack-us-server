@@ -1,0 +1,28 @@
+name: Ruby
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.0.1
+    - name: Install dependencies
+      run: | 
+        gem install rubocop rubocop-performance rubocop-rails rubocop-packaging
+        bundle install
+    - name: Lint with rubocop
+      run: rubocop

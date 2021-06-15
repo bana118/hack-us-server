@@ -1,0 +1,33 @@
+
+version: "3.8"
+services:
+
+  web:
+    build: .
+    ports:
+      - "3001:3001"
+    working_dir: /workspaces/hack-us-server
+    volumes:
+      - ..:/workspaces/hack-us-server:cached
+    depends_on:
+      - db
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    networks:
+      - backend
+    environment:
+      MYSQL_HOST: db
+
+  db:
+    image: mariadb:10.5.10
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    networks:
+      - backend
+
+
+# bridge はホストの任意のポートをコンテナのポートにマップできる
+networks:
+  backend:
+    driver: bridge

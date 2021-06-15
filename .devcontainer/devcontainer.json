@@ -1,6 +1,9 @@
 {
-    "name": "project-name",
-    "dockerFile": "Dockerfile",
+    "name": "hack-us-server",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "web",
+    "workspaceFolder": "/workspaces/hack-us-server",
+    "forwardPorts": [3001, 3306],
     "extensions": [
         "ms-azuretools.vscode-docker",
         "rebornix.ruby",

@@ -1,14 +1,9 @@
 name: Ruby
 
 on:
-  push:
-    branches:
-      - main
-      - develop
   pull_request:
     branches:
       - main
-      - develop
 
 jobs:
   check:
@@ -26,3 +21,13 @@ jobs:
         bundle install
     - name: Lint with rubocop
       run: rubocop
+    - name: Check git tag
+      uses: bana118/action-autotag@2d64822393af6f3f9db06ad3d1a51c6d756ac2f5
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      with:
+        strategy: regex
+        regex_pattern: "(?<version>\\d+\\.\\d+\\.\\d+(.+)?)\\n?"
+        root: ".version"
+        tag_prefix: "v"
+        dry_run: true

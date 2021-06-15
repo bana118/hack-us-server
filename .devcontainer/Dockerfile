@@ -7,6 +7,7 @@ RUN apt update \
     build-essential \
     ca-certificates \
     procps \
+    libmariadbd-dev \
     && apt autoremove -y \
     && apt clean -y \
     && rm -rf /var/lib/apt/lists/* \

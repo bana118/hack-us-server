@@ -1,9 +1,9 @@
 # https://raw.githubusercontent.com/rails/rails/master/.rubocop.yml
 
 require:
-  - rubocop-packaging
   - rubocop-performance
   - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
   TargetRubyVersion: 3.0

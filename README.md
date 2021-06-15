@@ -1,7 +1,9 @@
-# README
-# HackUsServer
+# hack-us-server
 
-## how to run
+チーム開発マッチングアプリ「Hack Us」のサーバー
+
+# How to get started
+
 ```
 # 必要な gem をインストール
 bundle install
@@ -16,13 +18,16 @@ rails db:migrate
 rails server
 ```
 
-mysql を起動していない場合は以下を実行
+ローカルで開発していてmysql を起動していない場合は以下を実行
 ```
 mysql.server start
 ```
-## database
+
+## Database
+
 * [dbdiagram](https://dbdiagram.io/home) で作成
 * `./database.pdf` に記載<br>
 
-## request example
+## Request example
+
 <img width="50%" alt="スクリーンショット 2021-06-15 15 56 16" src="https://user-images.githubusercontent.com/51741264/122006794-39c62a00-cdf2-11eb-8bde-42071aa2cad0.png">

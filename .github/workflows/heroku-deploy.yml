@@ -3,8 +3,7 @@ name: deploy to heroku
 on:
   push:
     branches:
-    # TODO: change to master when succeed
-      - issue/13
+      - main
 
 jobs:
   build:

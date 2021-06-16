@@ -1,0 +1,18 @@
+name: deploy to heroku
+
+on:
+  push:
+    branches:
+    # TODO: change to master when succeed
+      - issue/13
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.8.8
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "hack-us-server"
+          heroku_email: ${{secrets.HEROKU_EMAIL}}

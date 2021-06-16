@@ -1,0 +1,7 @@
+build:
+  docker:
+    web: Dockerfile
+  config:
+    RAILS_ENV: production
+run:
+  web: bin/rails server -b 0.0.0.0

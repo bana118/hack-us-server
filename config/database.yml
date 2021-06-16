@@ -50,6 +50,8 @@ test:
 #
 production:
   <<: *default
-  database: hack_us_server_production
-  username: hack_us_server
-  password: <%= ENV['HACK_US_SERVER_DATABASE_PASSWORD'] %>
+  database: <%= ENV['MYSQL_DATABASENAME'] %>
+  username: <%= ENV['MYSQL_USERNAME'] %>
+  password: <%= ENV['MYSQL_PASSWORD'] %>
+  host: <%= ENV['MYSQL_HOST'] %>
+  port: <%= ENV['MYSQL_PORT'] %>

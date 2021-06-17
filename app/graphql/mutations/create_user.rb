@@ -8,9 +8,10 @@ module Mutations
     field :result, Boolean, null: true
 
     argument :name, String, required: true
+    argument :uid, String, required: true
 
-    def resolve(name:)
-      user = User.create(name: name)
+    def resolve(name:, uid:)
+      user = User.create(name: name, uid: uid)
       {
         user: user,
         result: user.errors.blank?

@@ -13,7 +13,7 @@ module Types
       User.all
     end
 
-    field :post, Types::UserType, null: false do
+    field :user, Types::UserType, null: false do
       argument :id, Int, required: false
     end
     def user(id:)

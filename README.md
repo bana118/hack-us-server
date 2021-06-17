@@ -18,13 +18,13 @@ rails db:migrate
 rails server -p 3001 -b 0.0.0.0
 ```
 
-ローカルで開発していてmysql を起動していない場合は以下を実行
+ローカルで開発していて mysql を起動していない場合は以下を実行
+
 ```
 mysql.server start
 ```
 
 ## Database
-
 
 ```
 Table users {
@@ -54,7 +54,7 @@ Ref: participants.user_id > users.id
 Ref: participants.project_id > projects.id
 ```
 
-* [dbdiagram](https://dbdiagram.io/home) で作成
+- [dbdiagram](https://dbdiagram.io/home) で作成
 
 ## Request example
 

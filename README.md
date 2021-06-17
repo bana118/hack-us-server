@@ -25,6 +25,34 @@ mysql.server start
 
 ## Database
 
+
+```
+Table user {
+  id int [pk, increment]
+  name varchar [not null]
+  created_at timestamp [not null]
+}
+
+Table project {
+  id int [pk, increment]
+  owner_id int [not null]
+  name varchar [not null]
+  created_at timestamp [not null]
+}
+
+Ref: project.owner_id > user.id
+
+Table participant {
+  id int [pk, increment]
+  user_id int [not null]
+  project_id int [not null]
+  created_at timestamp [not null]
+}
+
+Ref: participant.user_id > user.id
+Ref: participant.project_id > project.id
+```
+
 * [dbdiagram](https://dbdiagram.io/home) で作成
 * `./database.pdf` に記載<br>
 

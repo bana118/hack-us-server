@@ -1,5 +1,7 @@
 {
-    "editor.defaultFormatter": "misogi.ruby-rubocop",
+    "[ruby]": {
+        "editor.defaultFormatter": "misogi.ruby-rubocop",
+    },
     "editor.formatOnType": true,
     "editor.formatOnSave": true,
     "ruby.lint": {

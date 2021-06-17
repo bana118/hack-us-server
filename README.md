@@ -15,7 +15,7 @@ rails db:create
 rails db:migrate
 
 # サーバーを起動
-rails server
+rails server -p 3001 -b 0.0.0.0
 ```
 
 ローカルで開発していてmysql を起動していない場合は以下を実行

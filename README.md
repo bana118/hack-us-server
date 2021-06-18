@@ -55,7 +55,6 @@ Ref: participant.project_id > project.id
 ```
 
 * [dbdiagram](https://dbdiagram.io/home) で作成
-* `./database.pdf` に記載<br>
 
 ## Request example
 

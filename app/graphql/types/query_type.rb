@@ -14,10 +14,10 @@ module Types
     end
 
     field :user, Types::UserType, null: false do
-      argument :id, Int, required: false
+      argument :uid, String, required: false
     end
-    def user(id:)
-      User.find(id)
+    def user(uid:)
+      User.find_by(uid: uid)
     end
   end
 end

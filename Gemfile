@@ -10,6 +10,7 @@ gem "rails", "~> 6.1.2", ">= 6.1.2.1"
 # setup graphql
 gem "graphql"
 gem "graphiql-rails"
+gem "rack-cors"
 # Use mysql as the database for Active Record
 gem "mysql2", "~> 0.5"
 # Use Puma as the app server
@@ -20,11 +21,6 @@ gem "puma", "~> 5.0"
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-gem "rubocop", require: false
-gem "rubocop-rails", require: false
-gem "rubocop-rspec", require: false
-gem "rubocop-performance", require: false
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
@@ -41,6 +37,13 @@ group :development do
   gem "listen", "~> 3.3"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
+
+  gem "rubocop", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-packaging", require: false
+  gem "solargraph", require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

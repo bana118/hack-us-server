@@ -10,6 +10,7 @@ gem "rails", "~> 6.1.2", ">= 6.1.2.1"
 # setup graphql
 gem "graphql"
 gem "graphiql-rails"
+gem "rack-cors"
 # Use mysql as the database for Active Record
 gem "mysql2", "~> 0.5"
 # Use Puma as the app server

@@ -27,31 +27,31 @@ mysql.server start
 
 
 ```
-Table user {
+Table users {
   id int [pk, increment]
   name varchar [not null]
-  uid varchar [not null]
+  uid varchar [not null, unique]
   created_at timestamp [not null]
 }
 
-Table project {
+Table projects {
   id int [pk, increment]
   owner_id int [not null]
   name varchar [not null]
   created_at timestamp [not null]
 }
 
-Ref: project.owner_id > user.id
+Ref: projects.owner_id > users.id
 
-Table participant {
+Table participants {
   id int [pk, increment]
   user_id int [not null]
   project_id int [not null]
   created_at timestamp [not null]
 }
 
-Ref: participant.user_id > user.id
-Ref: participant.project_id > project.id
+Ref: participants.user_id > users.id
+Ref: participants.project_id > projects.id
 ```
 
 * [dbdiagram](https://dbdiagram.io/home) で作成

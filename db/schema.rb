@@ -12,6 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2021_06_18_033458) do
 
+  create_table "projects", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "owner_id"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_projects_on_owner_id"
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -20,4 +28,5 @@ ActiveRecord::Schema.define(version: 2021_06_18_033458) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
+  add_foreign_key "projects", "users", column: "owner_id"
 end

@@ -8,6 +8,6 @@ class Participant < ApplicationRecord
   validates :user,
             uniqueness: {
               scope: :project_id,
-              message: 'this user already participated to this project'
+              message: "this user already participated to this project"
             }
 end

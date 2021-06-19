@@ -10,5 +10,4 @@ RUN apt update \
     libmariadbd-dev \
     && apt autoremove -y \
     && apt clean -y \
-    && rm -rf /var/lib/apt/lists/* \
-    && gem install rubocop rubocop-performance rubocop-rails rubocop-packaging
+    && rm -rf /var/lib/apt/lists/*

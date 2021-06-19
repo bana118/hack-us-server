@@ -13,11 +13,11 @@ module Types
       User.all
     end
 
-    field :post, Types::UserType, null: false do
-      argument :id, Int, required: false
+    field :user, Types::UserType, null: false do
+      argument :uid, String, required: false
     end
-    def user(id:)
-      User.find(id)
+    def user(uid:)
+      User.find_by(uid: uid)
     end
 
     field :projects, [Types::ProjectType], null: false

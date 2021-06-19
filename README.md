@@ -15,7 +15,7 @@ rails db:create
 rails db:migrate
 
 # サーバーを起動
-rails server
+rails server -p 3001 -b 0.0.0.0
 ```
 
 ローカルで開発していてmysql を起動していない場合は以下を実行
@@ -25,8 +25,36 @@ mysql.server start
 
 ## Database
 
+
+```
+Table users {
+  id int [pk, increment]
+  name varchar [not null]
+  uid varchar [not null, unique]
+  created_at timestamp [not null]
+}
+
+Table projects {
+  id int [pk, increment]
+  owner_id int [not null]
+  name varchar [not null]
+  created_at timestamp [not null]
+}
+
+Ref: projects.owner_id > users.id
+
+Table participants {
+  id int [pk, increment]
+  user_id int [not null]
+  project_id int [not null]
+  created_at timestamp [not null]
+}
+
+Ref: participants.user_id > users.id
+Ref: participants.project_id > projects.id
+```
+
 * [dbdiagram](https://dbdiagram.io/home) で作成
-* `./database.pdf` に記載<br>
 
 ## Request example
 

@@ -3,6 +3,7 @@
         "ms-vscode-remote.remote-containers",
         "ms-azuretools.vscode-docker",
         "rebornix.ruby",
-        "misogi.ruby-rubocop"
+        "misogi.ruby-rubocop",
+        "castwide.solargraph"
     ]
 }

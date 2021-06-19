@@ -38,5 +38,14 @@ module Types
     def paticipant(id:)
       Paticipant.find(id)
     end
+
+    # ユーザの参加情報一覧を返す
+    field :userParticipants, [Types::ParticipantType], null: false do
+      argument :uid, String, required: false
+    end
+    def userParticipants(uid:)
+      user = User.find_by(uid: uid)
+      Participant.where(user: user)
+    end
   end
 end

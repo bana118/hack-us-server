@@ -10,21 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_145838) do
+ActiveRecord::Schema.define(version: 2021_06_16_153304) do
 
   create_table "projects", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "owner_id"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_projects_on_user_id"
+    t.index ["owner_id"], name: "index_projects_on_owner_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "uid", null: false
   end
 
+  add_foreign_key "projects", "users", column: "owner_id"
 end

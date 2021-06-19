@@ -19,5 +19,17 @@ module Types
     def user(id:)
       User.find(id)
     end
+
+    field :projects, [Types::ProjectType], null: false
+    def projects
+      Project.all
+    end
+
+    field :project, Types::ProjectType, null: false do
+      argument :id, Int, required: false
+    end
+    def project(id:)
+      Project.find(id)
+    end
   end
 end

@@ -4,8 +4,11 @@ module Mutations
   class CreateParticipant < BaseMutation
     graphql_name "CreateParticipant"
 
-    field :participant, Types::PaticipantType, null: false
+    field :participant, Types::ParticipantType, null: false
     field :result, Boolean, null: true
+
+    argument :user_id, ID, required: true
+    argument :project_id, ID, required: true
 
     def resolve(user_id:, project_id:)
       user = User.find(user_id)

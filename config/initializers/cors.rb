@@ -13,6 +13,8 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 
     resource "*",
       headers: :any,
-      methods: [:get, :post, :options]
+      methods: [:get, :post, :options],
+      # TODO クライアントとのクッキー共有のための設定だがクッキー共有ができていないので不要かもしれない
+      credentials: true
   end
 end

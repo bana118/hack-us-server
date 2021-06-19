@@ -32,10 +32,11 @@ module Types
       Project.find(id)
     end
 
-    field :paticipant, Types::PaticipantType, null: false do
+    field :paticipant, Types::ParticipantType, null: false do
       argument :id, ID, required: false
     end
     def paticipant(id:)
       Paticipant.find(id)
+    end
   end
 end

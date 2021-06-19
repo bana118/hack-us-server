@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mutations
   class CreateProject < BaseMutation
     graphql_name "CreateProject"
@@ -5,11 +7,11 @@ module Mutations
     field :project, Types::ProjectType, null: true
     field :result, Boolean, null: true
 
-    argument :owner_id, ID, required: true
+    argument :ownerUid, String, required: true
     argument :name, String, required: true
 
     def resolve(**args)
-      owner = User.find(args[:owner_id])
+      owner = User.find_by(uid: args[:ownerUid])
       project = Project.create(owner: owner, name: args[:name])
       {
         project: project,

@@ -7,11 +7,11 @@ module Mutations
     field :participant, Types::ParticipantType, null: false
     field :result, Boolean, null: true
 
-    argument :user_id, ID, required: true
+    argument :uid, String, required: true
     argument :project_id, ID, required: true
 
-    def resolve(user_id:, project_id:)
-      user = User.find(user_id)
+    def resolve(uid:, project_id:)
+      user = User.find_by(uid: uid)
       project = Project.find(project_id)
       participant = Participant.create(user: user, project: project)
 

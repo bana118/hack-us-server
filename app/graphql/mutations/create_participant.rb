@@ -15,10 +15,11 @@ module Mutations
       project = Project.find(project_id)
       participant = Participant.create(user: user, project: project)
 
-      {
-        participant: participant,
-        result: participant.errors.blank?
-      }
+      if participant.save
+        { participant: participant }
+      else
+        raise GraphQL::ExecutionError, participant.errors.full_messages.join(", ")
+      end
     end
   end
 end

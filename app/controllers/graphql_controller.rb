@@ -50,16 +50,15 @@ class GraphqlController < ApplicationController
     end
 
     def current_user
-      puts "HTTP_AUTHORIZATION:"
-      puts request.headers["HTTP_AUTHORIZATION"]
       return nil if request.headers["Authorization"].blank?
       token = request.headers["Authorization"].split(" ").last
       return nil if token.blank?
       begin
-        decoded_token = FirebaseUtils::Auth.verify_id_token(token)
-        puts decoded_token
+        user_info = FirebaseUtils::Auth.verify_id_token(token)
+        user_info
       rescue => e
         puts e
+        nil
       end
     end
 end

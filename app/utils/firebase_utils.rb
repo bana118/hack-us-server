@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Node.js version of the official decoder: https://github.com/firebase/firebase-admin-node/blob/master/src/auth/token-verifier.ts
+
 require "jwt"
 require "yaml"
 require "net/http"

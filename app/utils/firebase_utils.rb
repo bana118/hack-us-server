@@ -57,6 +57,7 @@ module FirebaseUtils
           https = Net::HTTP.new(uri.host, uri.port)
           https.use_ssl = true
 
+          # TODO 公開鍵の内容は頻繁に変更されないのでキャッシュする
           res = https.start {
             https.get(uri.request_uri)
           }

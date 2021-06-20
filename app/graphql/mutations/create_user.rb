@@ -11,6 +11,8 @@ module Mutations
     argument :uid, String, required: true
 
     def resolve(name:, uid:)
+      raise GraphQL::ExecutionError, "Authentication failed" if context[:current_user].nil? || context[:current_user]["uid"] != uid
+
       user = User.create(name: name, uid: uid)
       {
         user: user,

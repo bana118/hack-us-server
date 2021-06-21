@@ -48,6 +48,15 @@ module Types
       Participant.where(user: user)
     end
 
+    # プロジェクトの参加情報一覧を返す
+    field :projectParticipants, [Types::ParticipantType], null: false do
+      argument :project_id, ID, required: false
+    end
+    def projectParticipants(project_id:)
+      project = Project.find(project_id)
+      Participant.where(project: project)
+    end
+
     field :favorite, Types::FavoriteType, null: false do
       argument :id, ID, required: false
     end
@@ -62,6 +71,15 @@ module Types
     def userFavorites(uid:)
       user = User.find_by(uid: uid)
       Favorite.where(user: user)
+    end
+
+    # プロジェクトのお気に入り一覧を返す
+    field :projectFavorites, [Types::FavoriteType], null: false do
+      argument :project_id, ID, required: false
+    end
+    def projectFavorites(project_id:)
+      project = Project.find(project_id)
+      Favorite.where(project: project)
     end
   end
 end

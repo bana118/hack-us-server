@@ -54,5 +54,14 @@ module Types
     def favorite(id:)
       Favorite.find(id)
     end
+
+    # ユーザのお気に入り一覧を返す
+    field :userFavorites, [Types::FavoriteType], null: false do
+      argument :uid, String, required: false
+    end
+    def userFavorites(uid:)
+      user = User.find_by(uid: uid)
+      Favorite.where(user: user)
+    end
   end
 end

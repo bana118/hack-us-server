@@ -31,6 +31,9 @@ Table users {
   id int [pk, increment]
   name varchar [not null]
   uid varchar [not null, unique]
+  description varchar [not null]
+  github_id varchar [not null]
+  github_icon_url varchar [not null]
   created_at timestamp [not null]
 }
 

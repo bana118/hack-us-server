@@ -47,5 +47,12 @@ module Types
       user = User.find_by(uid: uid)
       Participant.where(user: user)
     end
+
+    field :favorite, Types::FavoriteType, null: false do
+      argument :id, ID, required: false
+    end
+    def favorite(id:)
+      Favorite.find(id)
+    end
   end
 end

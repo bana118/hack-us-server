@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_153702) do
+ActiveRecord::Schema.define(version: 2021_06_22_185324) do
 
-  create_table "favorites", charset: "utf8mb4", force: :cascade do |t|
+  create_table "favorites", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_153702) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "participants", charset: "utf8mb4", force: :cascade do |t|
+  create_table "participants", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -30,15 +30,27 @@ ActiveRecord::Schema.define(version: 2021_06_21_153702) do
     t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
-  create_table "projects", charset: "utf8mb4", force: :cascade do |t|
+  create_table "projects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "owner_id"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "description", comment: "プロジェクト概要"
+    t.string "github_url", comment: "GitHubリポジトリURL"
+    t.datetime "starts_at", comment: "開発期間：開始"
+    t.datetime "ends_at", comment: "開発期間：終了"
+    t.string "technology1", comment: "使用技術1"
+    t.string "technology2", comment: "使用技術2"
+    t.string "technology3", comment: "使用技術3"
+    t.string "technology4", comment: "使用技術4"
+    t.string "technology5", comment: "使用技術5"
+    t.integer "recruitment_numbers", comment: "募集人数"
+    t.string "tool_link", comment: "コミュニケーションツールのリンク"
+    t.string "contribution", comment: "コントリビュート方法"
     t.index ["owner_id"], name: "index_projects_on_owner_id"
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

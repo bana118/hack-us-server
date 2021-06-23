@@ -51,5 +51,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# validate firebase token
+# Validate firebase token
 gem "jwt"
+
+# Graphql client
+gem "graphql-client"

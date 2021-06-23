@@ -83,6 +83,9 @@ GEM
       railties
       sprockets-rails
     graphql (1.12.12)
+    graphql-client (0.16.0)
+      activesupport (>= 3.0)
+      graphql (~> 1.8)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
@@ -224,6 +227,7 @@ DEPENDENCIES
   dotenv-rails
   graphiql-rails
   graphql
+  graphql-client
   jwt
   listen (~> 3.3)
   mysql2 (~> 0.5)

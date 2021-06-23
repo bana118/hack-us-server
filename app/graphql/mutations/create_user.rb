@@ -9,11 +9,14 @@ module Mutations
 
     argument :uid, String, required: true
     argument :github_id, String, required: true
+    argument :github_access_token, String, required: true
 
-    def resolve(uid:, github_id:)
+    def resolve(uid:, github_id:, github_access_token:)
       raise GraphQL::ExecutionError, "Authentication failed" if context[:current_user].nil? || context[:current_user]["uid"] != uid
+      contributions = GithubUtils::GraphqlApi.get_contributions(github_access_token)
       name =  context[:current_user]["decoded_token"][:payload]["name"]
       picture = context[:current_user]["decoded_token"][:payload]["picture"]
+
       user = User.create(name: name, uid: uid, description: "", github_id: github_id, github_icon_url: picture)
       {
         user: user,

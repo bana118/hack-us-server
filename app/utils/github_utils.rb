@@ -35,7 +35,7 @@ module GithubUtils
         }
     GRAPHQL
     class << self
-      def get_language_to_contributions(github_id)
+      def get_contribution_info(github_id)
         result = Client.query(ViewerQuery, variables: { github_id: github_id })
         repositories = result.data.search.nodes[0].contributions_collection.commit_contributions_by_repository
         language_to_contributions = {}
@@ -48,7 +48,7 @@ module GithubUtils
             language_to_contributions[language] += contributions
           end
         end
-        language_to_contributions
+        language_to_contributions.map { |key, val| { "language": key, "contributions": val } }
       end
     end
   end

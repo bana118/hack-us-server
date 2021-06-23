@@ -17,10 +17,7 @@ module Types
       argument :uid, String, required: false
     end
     def user(uid:)
-      user = User.find_by(uid: uid)
-      contributions = GithubUtils::GraphqlApi.get_contributions(user.github_id)
-      # User.find_by(uid: uid)
-      user
+      User.find_by(uid: uid)
     end
 
     field :projects, [Types::ProjectType], null: false

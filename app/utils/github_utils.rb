@@ -22,7 +22,6 @@ module GithubUtils
                                 repository {
                                     primaryLanguage {
                                         name
-                                        color
                                     }
                                 }
                                 contributions {
@@ -36,10 +35,20 @@ module GithubUtils
         }
     GRAPHQL
     class << self
-      def get_contributions(github_id)
+      def get_language_to_contributions(github_id)
         result = Client.query(ViewerQuery, variables: { github_id: github_id })
-        p result.data.search.nodes[0].contributions_collection.commit_contributions_by_repository
-        result
+        repositories = result.data.search.nodes[0].contributions_collection.commit_contributions_by_repository
+        language_to_contributions = {}
+        for repository in repositories
+          language = repository.repository.primary_language.name
+          contributions = repository.contributions.total_count
+          if language_to_contributions[language].nil?
+            language_to_contributions[language] = contributions
+          else
+            language_to_contributions[language] += contributions
+          end
+        end
+        language_to_contributions
       end
     end
   end

@@ -14,7 +14,9 @@ module Mutations
       raise GraphQL::ExecutionError, "Authentication failed" if context[:current_user].nil? || context[:current_user]["uid"] != uid
       name =  context[:current_user]["decoded_token"][:payload]["name"]
       picture = context[:current_user]["decoded_token"][:payload]["picture"]
-      user = User.create(name: name, uid: uid, description: "", github_id: github_id, github_icon_url: picture)
+      contribution_info = GithubUtils::GraphqlApi.get_contribution_info(github_id).to_json
+
+      user = User.create(name: name, uid: uid, description: "", github_id: github_id, github_icon_url: picture, contribution_info: contribution_info)
       {
         user: user,
         result: user.errors.blank?,

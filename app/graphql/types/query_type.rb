@@ -10,14 +10,19 @@ module Types
 
     field :users, [Types::UserType], null: false
     def users
-      User.all
+      User.all.map do |user|
+        contribution_info = JSON.parse(user.contribution_info)
+        { **user.attributes, "contribution_info": contribution_info }
+      end
     end
 
     field :user, Types::UserType, null: false do
       argument :uid, String, required: false
     end
     def user(uid:)
-      User.find_by(uid: uid)
+      user = User.find_by(uid: uid)
+      contribution_info = JSON.parse(user.contribution_info)
+      { **user.attributes, "contribution_info": contribution_info }
     end
 
     field :projects, [Types::ProjectType], null: false

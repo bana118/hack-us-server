@@ -22,6 +22,7 @@ module GithubUtils
                                 repository {
                                     primaryLanguage {
                                         name
+                                        color
                                     }
                                 }
                                 contributions {
@@ -39,8 +40,11 @@ module GithubUtils
         result = Client.query(ViewerQuery, variables: { github_id: github_id })
         repositories = result.data.search.nodes[0].contributions_collection.commit_contributions_by_repository
         language_to_contributions = {}
+        language_to_color = {}
         for repository in repositories
           language = repository.repository.primary_language.name
+          language_color = repository.repository.primary_language.color
+          language_to_color[language] = language_color
           contributions = repository.contributions.total_count
           if language_to_contributions[language].nil?
             language_to_contributions[language] = contributions
@@ -48,7 +52,7 @@ module GithubUtils
             language_to_contributions[language] += contributions
           end
         end
-        language_to_contributions.map { |key, val| { "language": key, "contributions": val } }
+        language_to_contributions.sort_by { |_, v| -v }.to_h.map { |key, val| { "language": key, "color": language_to_color[key], "contributions": val } }
       end
     end
   end

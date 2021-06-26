@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_06_26_123031) do
 
-  create_table "favorites", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "favorites", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_06_26_123031) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "participants", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "participants", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2021_06_26_123031) do
     t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
-  create_table "projects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "projects", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "owner_id"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2021_06_26_123031) do
     t.index ["owner_id"], name: "index_projects_on_owner_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -59,8 +59,9 @@ ActiveRecord::Schema.define(version: 2021_06_26_123031) do
     t.string "description", null: false
     t.string "github_id", null: false
     t.string "github_icon_url", null: false
-    t.json "contribution_info", null: false
+    t.text "contribution_info", size: :long, null: false, collation: "utf8mb4_bin"
     t.index ["uid"], name: "index_users_on_uid", unique: true
+    t.check_constraint "json_valid(`contribution_info`)", name: "contribution_info"
   end
 
   add_foreign_key "favorites", "projects"

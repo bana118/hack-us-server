@@ -12,7 +12,7 @@ module Mutations
 
     def resolve(uid:, github_id:)
       raise GraphQL::ExecutionError, "Authentication failed" if context[:current_user].nil? || context[:current_user]["uid"] != uid
-      name =  context[:current_user]["decoded_token"][:payload]["name"]
+      name =  context[:current_user]["decoded_token"][:payload]["name"] || github_id
       picture = context[:current_user]["decoded_token"][:payload]["picture"]
       contribution_info = GithubUtils::GraphqlApi.get_contribution_info(github_id).to_json
 

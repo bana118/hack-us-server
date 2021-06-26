@@ -7,6 +7,7 @@ module Types
     field :createUser, mutation: Mutations::CreateUser
     field :updateUser, mutation: Mutations::UpdateUser
     field :createParticipant, mutation: Mutations::CreateParticipant
+    field :updateParticipant, mutation: Mutations::UpdateParticipant
     field :createFavorite, mutation: Mutations::CreateFavorite
   end
 end

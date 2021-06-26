@@ -37,11 +37,11 @@ module Types
       Project.find(id)
     end
 
-    field :paticipant, Types::ParticipantType, null: false do
+    field :participant, Types::ParticipantType, null: false do
       argument :id, ID, required: false
     end
-    def paticipant(id:)
-      Paticipant.find(id)
+    def participant(id:)
+      Participant.find(id)
     end
 
     # ユーザの参加情報一覧を返す

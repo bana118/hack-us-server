@@ -24,6 +24,7 @@ module Mutations
 
     def resolve(**args)
       owner = User.find_by(uid: args[:ownerUid])
+      raise GraphQL::ExecutionError, "User ID '#{args[:ownerUid]}' is not found. The project could not be created." if owner.nil?
       args.delete(:ownerUid) # UIDを削除
       args.store(:owner, owner) # ownerを追加
       project = Project.create(args)

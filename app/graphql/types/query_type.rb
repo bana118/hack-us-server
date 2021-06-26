@@ -8,11 +8,25 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    field :users, [Types::UserType], null: false
-    def users
-      User.all.map do |user|
-        contribution_info = JSON.parse(user.contribution_info)
-        { **user.attributes, "contribution_info": contribution_info }
+    field :users, [Types::UserType], null: false do
+      argument :language, String, required: false
+    end
+    def users(language: nil)
+      if language
+        # TODO パフォーマンスが悪い
+        # TODO ソートをSQLのorderで行う
+        User.where("JSON_CONTAINS(JSON_EXTRACT(contribution_info, '$[*].language'), ?)", "\"#{language}\"").map { |user|
+          contribution_info = JSON.parse(user.contribution_info)
+          { **user.attributes, "contribution_info": contribution_info }
+        }.sort_by { |user|
+          contribution_info = JSON.parse(user["contribution_info"])
+          contribution_info.find { |info| info["language"] == language }["contributions"]
+        }
+      else
+        User.all.map { |user |
+          contribution_info = JSON.parse(user.contribution_info)
+          { **user.attributes, "contribution_info": contribution_info }
+        }
       end
     end
 

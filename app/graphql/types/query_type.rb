@@ -39,9 +39,15 @@ module Types
       { **user.attributes, "contribution_info": contribution_info }
     end
 
-    field :projects, [Types::ProjectType], null: false
-    def projects
-      Project.all
+    field :projects, [Types::ProjectType], null: false do
+      argument :query, String, required: false
+    end
+    def projects(query: nil)
+      if query
+        Project.where("name LIKE(?) or description LIKE(?)", "%#{query}%", "%#{query}%")
+      else
+        Project.all
+      end
     end
 
     field :project, Types::ProjectType, null: false do

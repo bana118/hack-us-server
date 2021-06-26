@@ -13,15 +13,20 @@ module Types
     end
     def users(language: nil)
       if language
-        User.where("JSON_CONTAINS(JSON_EXTRACT(contribution_info, '$[*].language'), ?)", "\"#{language}\"").map do |user|
+        # TODO パフォーマンスが悪い
+        # TODO ソートをSQLのorderで行う
+        User.where("JSON_CONTAINS(JSON_EXTRACT(contribution_info, '$[*].language'), ?)", "\"#{language}\"").map { |user|
           contribution_info = JSON.parse(user.contribution_info)
           { **user.attributes, "contribution_info": contribution_info }
-        end
+        }.sort_by { |user|
+          contribution_info = JSON.parse(user["contribution_info"])
+          contribution_info.find { |info| info["language"] == language }["contributions"]
+        }
       else
-        User.all.map do |user|
+        User.all.map { |user |
           contribution_info = JSON.parse(user.contribution_info)
           { **user.attributes, "contribution_info": contribution_info }
-        end
+        }
       end
     end
 

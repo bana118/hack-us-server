@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Mutations
   class DeleteParticipant < BaseMutation
-    graphql_name 'DeleteParticipant'
+    graphql_name "DeleteParticipant"
 
     field :participant, Types::ParticipantType, null: false
     field :result, Boolean, null: true

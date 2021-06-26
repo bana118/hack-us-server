@@ -31,7 +31,7 @@ module Types
     end
 
     field :user, Types::UserType, null: false do
-      argument :uid, String, required: false
+      argument :uid, String, required: true
     end
     def user(uid:)
       user = User.find_by(uid: uid)
@@ -51,14 +51,14 @@ module Types
     end
 
     field :project, Types::ProjectType, null: false do
-      argument :id, Int, required: false
+      argument :id, Int, required: true
     end
     def project(id:)
       Project.find(id)
     end
 
     field :participant, Types::ParticipantType, null: false do
-      argument :id, ID, required: false
+      argument :id, ID, required: true
     end
     def participant(id:)
       Participant.find(id)
@@ -66,7 +66,7 @@ module Types
 
     # ユーザの参加情報一覧を返す
     field :userParticipants, [Types::ParticipantType], null: false do
-      argument :uid, String, required: false
+      argument :uid, String, required: true
     end
     def userParticipants(uid:)
       user = User.find_by(uid: uid)
@@ -75,7 +75,7 @@ module Types
 
     # プロジェクトの参加情報一覧を返す
     field :projectParticipants, [Types::ParticipantType], null: false do
-      argument :project_id, ID, required: false
+      argument :project_id, ID, required: true
     end
     def projectParticipants(project_id:)
       project = Project.find(project_id)
@@ -83,7 +83,7 @@ module Types
     end
 
     field :favorite, Types::FavoriteType, null: false do
-      argument :id, ID, required: false
+      argument :id, ID, required: true
     end
     def favorite(id:)
       Favorite.find(id)
@@ -91,7 +91,7 @@ module Types
 
     # ユーザのお気に入り一覧を返す
     field :userFavorites, [Types::FavoriteType], null: false do
-      argument :uid, String, required: false
+      argument :uid, String, required: true
     end
     def userFavorites(uid:)
       user = User.find_by(uid: uid)
@@ -100,7 +100,7 @@ module Types
 
     # プロジェクトのお気に入り一覧を返す
     field :projectFavorites, [Types::FavoriteType], null: false do
-      argument :project_id, ID, required: false
+      argument :project_id, ID, required: true
     end
     def projectFavorites(project_id:)
       project = Project.find(project_id)

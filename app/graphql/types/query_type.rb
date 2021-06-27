@@ -44,7 +44,7 @@ module Types
     end
     def projects(query: nil)
       if query
-        Project.where("name LIKE(?) or description LIKE(?)", "%#{query}%", "%#{query}%").map { |project|
+        Project.where("name LIKE(?) or description LIKE(?) or JSON_UNQUOTE(JSON_EXTRACT(languages, '$[*].name')) LIKE(?)", "%#{query}%", "%#{query}%", "%#{query}%").map { |project|
           owner = User.find(project.owner_id)
           languages = JSON.parse(project.languages)
           { **project.attributes, "languages": languages, "owner": owner }

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class HackUsServerSchema < GraphQL::Schema
+  use GraphQL::Pagination::Connections
+
   mutation(Types::MutationType)
   query(Types::QueryType)
 

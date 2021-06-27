@@ -8,7 +8,7 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    field :users, [Types::UserType], null: false do
+    field :users, Types::UserType.connection_type, null: false do
       argument :language, String, required: false
     end
     def users(language: nil)
@@ -39,7 +39,7 @@ module Types
       { **user.attributes, "contribution_info": contribution_info }
     end
 
-    field :projects, [Types::ProjectType], null: false do
+    field :projects, Types::ProjectType.connection_type, null: false do
       argument :query, String, required: false
     end
     def projects(query: nil)
@@ -65,7 +65,7 @@ module Types
     end
 
     # ユーザの参加情報一覧を返す
-    field :userParticipants, [Types::ParticipantType], null: false do
+    field :userParticipants, Types::ParticipantType.connection_type, null: false do
       argument :uid, String, required: true
     end
     def userParticipants(uid:)
@@ -74,7 +74,7 @@ module Types
     end
 
     # プロジェクトの参加情報一覧を返す
-    field :projectParticipants, [Types::ParticipantType], null: false do
+    field :projectParticipants, Types::ParticipantType.connection_type, null: false do
       argument :project_id, ID, required: true
     end
     def projectParticipants(project_id:)
@@ -90,7 +90,7 @@ module Types
     end
 
     # ユーザのお気に入り一覧を返す
-    field :userFavorites, [Types::FavoriteType], null: false do
+    field :userFavorites, Types::FavoriteType.connection_type, null: false do
       argument :uid, String, required: true
     end
     def userFavorites(uid:)
@@ -99,7 +99,7 @@ module Types
     end
 
     # プロジェクトのお気に入り一覧を返す
-    field :projectFavorites, [Types::FavoriteType], null: false do
+    field :projectFavorites, Types::FavoriteType.connection_type, null: false do
       argument :project_id, ID, required: true
     end
     def projectFavorites(project_id:)

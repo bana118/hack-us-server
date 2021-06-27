@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeOwnerIdToOwnerUidInProjects < ActiveRecord::Migration[6.1]
   def change
     remove_column :projects, :owner_id, :big_int

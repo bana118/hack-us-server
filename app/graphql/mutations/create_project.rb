@@ -7,7 +7,7 @@ module Mutations
     field :project, Types::ProjectType, null: true
     field :result, Boolean, null: true
 
-    argument :owner_id, Int, required: true
+    argument :owner_uid, String, required: true
     argument :name, String, required: true
     argument :description, String, required: false, description: "プロジェクト概要"
     argument :github_url, String, required: false, description: "GitHubリポジトリURL"
@@ -19,8 +19,8 @@ module Mutations
     argument :contribution, String, required: false, description: "コントリビュート方法"
 
     def resolve(**args)
-      owner = User.find(args[:owner_id])
-      raise GraphQL::ExecutionError, "User ID '#{args[:owner_id]}' is not found. The project could not be created." if owner.nil?
+      owner = User.find_by(uid: args[:owner_uid])
+      raise GraphQL::ExecutionError, "User ID '#{args[:owner_uid]}' is not found. The project could not be created." if owner.nil?
       project = Project.create({ **args, languages: args[:languages].to_json })
       {
         project: { **project.attributes, "languages": JSON.parse(project.languages), "owner": owner },

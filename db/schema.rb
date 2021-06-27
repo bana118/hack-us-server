@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_27_063323) do
+ActiveRecord::Schema.define(version: 2021_06_27_134300) do
 
   create_table "favorites", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 2021_06_27_063323) do
   end
 
   create_table "projects", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "owner_id"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -44,7 +43,7 @@ ActiveRecord::Schema.define(version: 2021_06_27_063323) do
     t.string "tool_link", comment: "コミュニケーションツールのリンク"
     t.string "contribution", comment: "コントリビュート方法"
     t.text "languages", size: :long, collation: "utf8mb4_bin"
-    t.index ["owner_id"], name: "index_projects_on_owner_id"
+    t.string "owner_uid", null: false
     t.check_constraint "json_valid(`languages`)", name: "languages"
   end
 
@@ -65,5 +64,4 @@ ActiveRecord::Schema.define(version: 2021_06_27_063323) do
   add_foreign_key "favorites", "users"
   add_foreign_key "participants", "projects"
   add_foreign_key "participants", "users"
-  add_foreign_key "projects", "users", column: "owner_id"
 end

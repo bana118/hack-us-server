@@ -21,7 +21,7 @@ module Mutations
 
     def resolve(**args)
       project = Project.find(args[:id])
-      owner = User.find(project.owner_id)
+      owner = User.find_by(project.owner_uid)
       args.delete(:id)
       project.update!({ **args, languages: args[:languages].to_json, owner: owner })
 

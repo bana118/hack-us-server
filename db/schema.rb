@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2021_06_27_150748) do
     t.string "github_url", null: false, comment: "GitHubリポジトリURL"
     t.datetime "starts_at", comment: "開発期間：開始"
     t.datetime "ends_at", comment: "開発期間：終了"
-    t.integer "recruitment_numbers", null: false, comment: "募集人数"
+    t.integer "recruitment_numbers", comment: "募集人数"
     t.string "tool_link", null: false, comment: "コミュニケーションツールのリンク"
     t.string "contribution", null: false, comment: "コントリビュート方法"
     t.text "languages", size: :long, null: false

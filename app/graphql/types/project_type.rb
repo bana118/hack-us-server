@@ -11,11 +11,7 @@ module Types
     field :github_url, String, null: true
     field :starts_at, GraphQL::Types::ISO8601DateTime, null: true
     field :ends_at, GraphQL::Types::ISO8601DateTime, null: true
-    field :technology1, String, null: true
-    field :technology2, String, null: true
-    field :technology3, String, null: true
-    field :technology4, String, null: true
-    field :technology5, String, null: true
+    field :languages, [Types::LanguageType], null: true
     field :recruitment_numbers, Int, null: true
     field :tool_link, String, null: true
     field :contribution, String, null: true

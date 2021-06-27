@@ -14,21 +14,18 @@ module Mutations
     argument :github_url, String, required: false, description: "GitHubリポジトリURL"
     argument :starts_at, GraphQL::Types::ISO8601DateTime, required: false, description: "開発期間：開始"
     argument :ends_at, GraphQL::Types::ISO8601DateTime, required: false, description: "開発期間：終了"
-    argument :technology1, String, required: false, description: "使用技術1"
-    argument :technology2, String, required: false, description: "使用技術2"
-    argument :technology3, String, required: false, description: "使用技術3"
-    argument :technology4, String, required: false, description: "使用技術4"
-    argument :technology5, String, required: false, description: "使用技術5"
+    argument :languages, [Types::LanguageInputType], required: false, description: "使用言語"
     argument :recruitment_numbers, Int, required: false, description: "募集人数"
     argument :tool_link, String, required: false, description: "コミュニケーションツールのリンク"
     argument :contribution, String, required: false, description: "コントリビュート方法"
 
     def resolve(**args)
       project = Project.find(args[:id])
+      owner = User.find(project.owner_id)
       args.delete(:id)
-      project.update!(args)
+      project.update!({ **args, languages: args[:languages].to_json, owner: owner })
 
-      { project: project }
+      { project: { **project.attributes, "languages": JSON.parse(project.languages) }, }
     rescue ActiveRecord::RecordInvalid => e
       GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
     end

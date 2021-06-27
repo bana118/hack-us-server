@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_26_123031) do
+ActiveRecord::Schema.define(version: 2021_06_27_063323) do
 
   create_table "favorites", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -40,15 +40,12 @@ ActiveRecord::Schema.define(version: 2021_06_26_123031) do
     t.string "github_url", comment: "GitHubリポジトリURL"
     t.datetime "starts_at", comment: "開発期間：開始"
     t.datetime "ends_at", comment: "開発期間：終了"
-    t.string "technology1", comment: "使用技術1"
-    t.string "technology2", comment: "使用技術2"
-    t.string "technology3", comment: "使用技術3"
-    t.string "technology4", comment: "使用技術4"
-    t.string "technology5", comment: "使用技術5"
     t.integer "recruitment_numbers", comment: "募集人数"
     t.string "tool_link", comment: "コミュニケーションツールのリンク"
     t.string "contribution", comment: "コントリビュート方法"
+    t.text "languages", size: :long, collation: "utf8mb4_bin"
     t.index ["owner_id"], name: "index_projects_on_owner_id"
+    t.check_constraint "json_valid(`languages`)", name: "languages"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

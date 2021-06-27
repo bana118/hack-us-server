@@ -15,7 +15,9 @@ module Types
       if language
         # TODO パフォーマンスが悪い
         # TODO ソートをSQLのorderで行う
-        User.where("JSON_CONTAINS(JSON_EXTRACT(contribution_info, '$[*].language'), ?)", "\"#{language}\"").map { |user|
+        User.where("JSON_CONTAINS(JSON_EXTRACT(contribution_info, '$[*].language'), ?)", "\"#{language}\"")
+          .order(:name)
+          .map { |user|
           contribution_info = JSON.parse(user.contribution_info)
           { **user.attributes, "contribution_info": contribution_info }
         }.sort_by { |user|
@@ -23,7 +25,7 @@ module Types
           contribution_info.find { |info| info["language"] == language }["contributions"]
         }
       else
-        User.all.map { |user |
+        User.all.order(:name).map { |user |
           contribution_info = JSON.parse(user.contribution_info)
           { **user.attributes, "contribution_info": contribution_info }
         }
@@ -44,13 +46,15 @@ module Types
     end
     def projects(query: nil)
       if query
-        Project.where("name LIKE(?) or description LIKE(?) or JSON_UNQUOTE(JSON_EXTRACT(languages, '$[*].name')) LIKE(?)", "%#{query}%", "%#{query}%", "%#{query}%").map { |project|
+        Project.where("name LIKE(?) or description LIKE(?) or JSON_UNQUOTE(JSON_EXTRACT(languages, '$[*].name')) LIKE(?)", "%#{query}%", "%#{query}%", "%#{query}%")
+        .order(created_at: "DESC")
+        .map { |project|
           owner = User.find(project.owner_id)
           languages = JSON.parse(project.languages)
           { **project.attributes, "languages": languages, "owner": owner }
         }
       else
-        Project.all.map { |project|
+        Project.all.order(created_at: "DESC").map { |project|
           owner = User.find(project.owner_id)
           languages = JSON.parse(project.languages)
           { **project.attributes, "languages": languages, "owner": owner }
@@ -81,7 +85,7 @@ module Types
     end
     def userParticipants(uid:)
       user = User.find_by(uid: uid)
-      Participant.where(user: user)
+      Participant.where(user: user).order(created_at: "DESC")
     end
 
     # プロジェクトの参加情報一覧を返す
@@ -90,7 +94,7 @@ module Types
     end
     def projectParticipants(project_id:)
       project = Project.find(project_id)
-      Participant.where(project: project)
+      Participant.where(project: project).order(created_at: "DESC")
     end
 
     field :favorite, Types::FavoriteType, null: false do
@@ -106,7 +110,7 @@ module Types
     end
     def userFavorites(uid:)
       user = User.find_by(uid: uid)
-      Favorite.where(user: user)
+      Favorite.where(user: user).order(created_at: "DESC")
     end
 
     # プロジェクトのお気に入り一覧を返す
@@ -115,7 +119,7 @@ module Types
     end
     def projectFavorites(project_id:)
       project = Project.find(project_id)
-      Favorite.where(project: project)
+      Favorite.where(project: project).order(created_at: "DESC")
     end
   end
 end

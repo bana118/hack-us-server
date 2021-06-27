@@ -21,10 +21,11 @@ module Mutations
 
     def resolve(**args)
       project = Project.find(args[:id])
+      owner = User.find(project.owner_id)
       args.delete(:id)
-      project.update!(args)
+      project.update!({ **args, languages: args[:languages].to_json, owner: owner })
 
-      { project: project }
+      { project: { **project.attributes, "languages": JSON.parse(project.languages) }, }
     rescue ActiveRecord::RecordInvalid => e
       GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
     end

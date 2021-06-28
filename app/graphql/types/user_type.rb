@@ -8,7 +8,7 @@ module Types
     field :description, String, null: false
     field :github_id, String, null: false
     field :github_icon_url, String, null: false
-    field :contribution_info, [Types::ContributionInfoType], null: false
+    field :contributions, [Types::ContributionType], null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
   end

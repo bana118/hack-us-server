@@ -13,22 +13,9 @@ module Types
     end
     def users(language: nil)
       if language
-        # TODO パフォーマンスが悪い
-        # TODO ソートをSQLのorderで行う
-        User.where("JSON_CONTAINS(JSON_EXTRACT(contribution_info, '$[*].language'), ?)", "\"#{language}\"")
-          .order(:name)
-          .map { |user|
-          contribution_info = JSON.parse(user.contribution_info)
-          { **user.attributes, "contribution_info": contribution_info }
-        }.sort_by { |user|
-          contribution_info = JSON.parse(user["contribution_info"])
-          contribution_info.find { |info| info["language"] == language }["contributions"]
-        }
+        User.has_language_contribution(language)
       else
-        User.all.order(:name).map { |user |
-          contribution_info = JSON.parse(user.contribution_info)
-          { **user.attributes, "contribution_info": contribution_info }
-        }
+        User.all.order(:name)
       end
     end
 
@@ -36,9 +23,7 @@ module Types
       argument :uid, String, required: true
     end
     def user(uid:)
-      user = User.find_by(uid: uid)
-      contribution_info = JSON.parse(user.contribution_info)
-      { **user.attributes, "contribution_info": contribution_info }
+      User.find_by(uid: uid)
     end
 
     field :projects, Types::ProjectType.connection_type, null: false do

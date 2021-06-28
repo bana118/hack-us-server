@@ -36,7 +36,7 @@ module GithubUtils
         }
     GRAPHQL
     class << self
-      def get_contribution_info(github_id)
+      def get_contributions(github_id)
         result = Client.query(ViewerQuery, variables: { github_id: github_id })
         repositories = result.data.search.nodes[0].contributions_collection.commit_contributions_by_repository
         language_to_contributions = {}
@@ -52,7 +52,7 @@ module GithubUtils
             language_to_contributions[language] += contributions
           end
         end
-        language_to_contributions.sort_by { |_, v| -v }.to_h.map { |key, val| { "language": key, "color": language_to_color[key], "contributions": val } }
+        language_to_contributions.sort_by { |_, v| -v }.to_h.map { |key, val| { "language": key, "color": language_to_color[key], "count": val } }
       end
     end
   end

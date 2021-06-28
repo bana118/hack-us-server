@@ -25,7 +25,7 @@ module Mutations
       args.delete(:owner_uid)
       args.delete(:languages)
       args.store(:owner, owner)
-      project = Project.create(args**)
+      project = Project.create(args)
       languages.each do |language|
         project.languages.create(name: language[:name], color: language[:color])
       end

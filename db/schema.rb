@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_27_063323) do
+ActiveRecord::Schema.define(version: 2021_06_27_150748) do
 
   create_table "favorites", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -32,20 +32,18 @@ ActiveRecord::Schema.define(version: 2021_06_27_063323) do
   end
 
   create_table "projects", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "owner_id"
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "description", comment: "プロジェクト概要"
-    t.string "github_url", comment: "GitHubリポジトリURL"
+    t.string "description", null: false, comment: "プロジェクト概要"
+    t.string "github_url", null: false, comment: "GitHubリポジトリURL"
     t.datetime "starts_at", comment: "開発期間：開始"
     t.datetime "ends_at", comment: "開発期間：終了"
     t.integer "recruitment_numbers", comment: "募集人数"
-    t.string "tool_link", comment: "コミュニケーションツールのリンク"
-    t.string "contribution", comment: "コントリビュート方法"
-    t.text "languages", size: :long, collation: "utf8mb4_bin"
-    t.index ["owner_id"], name: "index_projects_on_owner_id"
-    t.check_constraint "json_valid(`languages`)", name: "languages"
+    t.string "tool_link", null: false, comment: "コミュニケーションツールのリンク"
+    t.string "contribution", null: false, comment: "コントリビュート方法"
+    t.text "languages", size: :long, null: false
+    t.string "owner_uid", null: false
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
@@ -65,5 +63,4 @@ ActiveRecord::Schema.define(version: 2021_06_27_063323) do
   add_foreign_key "favorites", "users"
   add_foreign_key "participants", "projects"
   add_foreign_key "participants", "users"
-  add_foreign_key "projects", "users", column: "owner_id"
 end

@@ -31,17 +31,10 @@ module Types
     end
     def projects(query: nil)
       if query
-        Project.where("name LIKE(?) or description LIKE(?) or JSON_UNQUOTE(JSON_EXTRACT(languages, '$[*].name')) LIKE(?)", "%#{query}%", "%#{query}%", "%#{query}%")
+        Project.join(:languages).where("name LIKE(?) or description LIKE(?) or languages.name LIKE(?)", "%#{query}%", "%#{query}%", "%#{query}%")
         .order(created_at: "DESC")
-        .map { |project|
-          languages = JSON.parse(project.languages)
-          { **project.attributes, "languages": languages, "owner": project.owner }
-        }
       else
-        Project.all.order(created_at: "DESC").map { |project|
-          languages = JSON.parse(project.languages)
-          { **project.attributes, "languages": languages, "owner": project.owner }
-        }
+        Project.all.order(created_at: "DESC")
       end
     end
 
@@ -49,9 +42,7 @@ module Types
       argument :id, Int, required: true
     end
     def project(id:)
-      project = Project.find(id)
-      languages = JSON.parse(project.languages)
-      { **project.attributes, "languages": languages, "owner": project.owner }
+      Project.find(id)
     end
 
     field :participant, Types::ParticipantType, null: false do

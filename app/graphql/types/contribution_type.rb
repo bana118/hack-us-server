@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Types
-  class ContributionInfoType < Types::BaseObject
+  class ContributionType < Types::BaseObject
     field :language, String, null: false
     field :color, String, null: false
-    field :contributions, Int, null: false
+    field :count, Int, null: false
   end
 end

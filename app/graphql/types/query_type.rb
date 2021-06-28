@@ -50,12 +50,12 @@ module Types
         .order(created_at: "DESC")
         .map { |project|
           languages = JSON.parse(project.languages)
-          { **project.attributes, "languages": languages }
+          { **project.attributes, "languages": languages, "owner": project.owner }
         }
       else
         Project.all.order(created_at: "DESC").map { |project|
           languages = JSON.parse(project.languages)
-          { **project.attributes, "languages": languages }
+          { **project.attributes, "languages": languages, "owner": project.owner }
         }
       end
     end
@@ -66,7 +66,7 @@ module Types
     def project(id:)
       project = Project.find(id)
       languages = JSON.parse(project.languages)
-      { **project.attributes, "languages": languages }
+      { **project.attributes, "languages": languages, "owner": project.owner }
     end
 
     field :participant, Types::ParticipantType, null: false do

@@ -24,7 +24,7 @@ module Mutations
       args.delete(:id)
       project.update!({ **args, languages: args[:languages].to_json })
 
-      { project: { **project.attributes, "languages": JSON.parse(project.languages) }, }
+      { project: { **project.attributes, "languages": JSON.parse(project.languages), "owner": project.owner }, }
     rescue ActiveRecord::RecordInvalid => e
       GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
     end

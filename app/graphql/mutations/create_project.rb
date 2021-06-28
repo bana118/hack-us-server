@@ -23,7 +23,7 @@ module Mutations
       raise GraphQL::ExecutionError, "User ID '#{args[:owner_uid]}' is not found. The project could not be created." if owner.nil?
       project = Project.create({ **args, languages: args[:languages].to_json })
       {
-        project: { **project.attributes, "languages": JSON.parse(project.languages) },
+        project: { **project.attributes, "languages": JSON.parse(project.languages), "owner": project.owner },
         result: project.errors.blank?
       }
     end

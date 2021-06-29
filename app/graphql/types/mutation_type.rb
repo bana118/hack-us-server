@@ -10,5 +10,6 @@ module Types
     field :updateParticipant, mutation: Mutations::UpdateParticipant
     field :deleteParticipant, mutation: Mutations::DeleteParticipant
     field :createFavorite, mutation: Mutations::CreateFavorite
+    field :deleteFavorite, mutation: Mutations::DeleteFavorite
   end
 end

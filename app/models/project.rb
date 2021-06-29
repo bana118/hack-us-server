@@ -2,7 +2,7 @@
 
 class Project < ApplicationRecord
   belongs_to :owner, class_name: "User", foreign_key: :owner_uid, primary_key: :uid
-  has_many :participants
-  has_many :favorites
-  has_many :languages
+  has_many :participants, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :languages, -> { order("name ASC") }, dependent: :destroy
 end

@@ -14,8 +14,8 @@ module Mutations
       participant.destroy!
 
       { participant: participant }
-    rescue ActiveRecord::RecordInvalid => e
-      GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
-    end
+      rescue ActiveRecord::RecordInvalid => e
+        GraphQL::ExecutionError.new("Invalid input: #{e.record.errors.full_messages.join(', ')}")
+      end
   end
 end

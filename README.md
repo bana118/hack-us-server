@@ -44,32 +44,48 @@ Table users {
   description varchar [not null]
   github_id varchar [not null]
   github_icon_url varchar [not null]
-  contribution_info json [not null]
   created_at timestamp [not null]
   updated_at timestamp [not null]
 }
+
+Table contributions {
+  id int [pk, increment]
+  user_id bigint [not null]
+  language string [not null]
+  color string [not null]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Ref: contributions.user_id > users.id
 
 Table projects {
   id int [pk, increment]
   owner_id int [not null]
   name varchar [not null]
-  description varchar
-  github_url varchar
+  description varchar [not null]
+  github_url varchar [not null]
   starts_at timestamp
   ends_at timestamp
-  technology1 varchar
-  technology2 varchar
-  technology3 varchar
-  technology4 varchar
-  technology5 varchar
   recruitment_numbers int
-  tool_link varchar
-  contribution varchar
+  tool_link varchar [not null]
+  contribution varchar [not null]
   created_at timestamp [not null]
   updated_at timestamp [not null]
 }
 
 Ref: projects.owner_id > users.id
+
+Table languages {
+  id int [pk, increment]
+  project_id bigint [not null]
+  name string [not null]
+  color string [not null]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Ref: languages.project_id > projects.id
 
 Table participants {
   id int [pk, increment]

@@ -42,8 +42,8 @@ module GithubUtils
         language_to_contributions = {}
         language_to_color = {}
         for repository in repositories
-          language = repository.repository.primary_language.name
-          language_color = repository.repository.primary_language.color
+          language = repository.repository.primary_language.name if repository.repository.primary_language
+          language_color = repository.repository.primary_language.color if repository.repository.primary_language
           language_to_color[language] = language_color
           contributions = repository.contributions.total_count
           if language_to_contributions[language].nil?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mutations
   class DeleteFavorite < BaseMutation
     graphql_name "DeleteFavorite"

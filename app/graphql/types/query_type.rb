@@ -31,8 +31,8 @@ module Types
     end
     def projects(query: nil)
       if query
-        Project.join(:languages).where("name LIKE(?) or description LIKE(?) or languages.name LIKE(?)", "%#{query}%", "%#{query}%", "%#{query}%")
-        .order(created_at: "DESC")
+        Project.joins(:languages).where("projects.name LIKE(?) or description LIKE(?) or languages.name LIKE(?)", "%#{query}%", "%#{query}%", "%#{query}%")
+        .distinct.order(created_at: "DESC")
       else
         Project.all.order(created_at: "DESC")
       end

@@ -24,10 +24,12 @@ module Mutations
       languages = args[:languages]
       args.delete(:id)
       args.delete(:languages)
-      project.languages.clear
       project.update!(args)
-      languages.each do |language|
-        project.languages.create(name: language[:name], color: language[:color])
+      if !languages.nil?
+        project.languages.clear
+        languages.each do |language|
+          project.languages.create(name: language[:name], color: language[:color])
+        end
       end
 
       { project: project }

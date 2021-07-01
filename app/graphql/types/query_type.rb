@@ -38,6 +38,23 @@ module Types
       end
     end
 
+    field :recommends, [Types::RecommendType], null: false do
+      argument :uid, String, required: true
+      argument :language_first, Int, required: true
+      argument :project_first, Int, required: true
+    end
+    def recommends(uid:, language_first:, project_first:)
+      user = User.find_by(uid: uid)
+      user.contributions.slice(0, language_first).map do |contribution|
+        language = contribution.language
+        projects = Project.joins(:languages).where("projects.name LIKE(?) or description LIKE(?) or languages.name LIKE(?)", "%#{language}%", "%#{language}%", "%#{language}%")
+                    .distinct
+                    .order(created_at: "DESC")
+                    .first(project_first)
+        { "language": language, "projects": projects }
+      end
+    end
+
     field :project, Types::ProjectType, null: false do
       argument :id, Int, required: true
     end

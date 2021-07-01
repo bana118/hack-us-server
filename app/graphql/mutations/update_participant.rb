@@ -8,12 +8,15 @@ module Mutations
     field :result, Boolean, null: true
 
     argument :id, ID, required: true
-    argument :is_admitted, Boolean, required: true
+    argument :user_approved, Boolean, required: false
+    argument :owner_approved, Boolean, required: false
 
-    # 応募者をプロジェクトに参加させる
-    def resolve(id:, is_admitted:)
-      participant = Participant.find(id)
-      participant.update!({ is_admitted: is_admitted })
+    # user_approved: ユーザー側の拒否/申請
+    # owner_approved: オーナー側の拒否/申請
+    def resolve(**args)
+      participant = Participant.find(args[:id])
+      args.delete(:id)
+      participant.update!(args)
 
       { participant: participant }
     rescue ActiveRecord::RecordInvalid => e

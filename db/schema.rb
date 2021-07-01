@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2021_07_01_232420) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "user_approved", comment: "false: 参加を拒否, true: 参加を承認"
-    t.boolean "owner_approved", null: false, comment: "false: 参加を拒否, true: 参加を承認"
+    t.boolean "owner_approved", comment: "false: 参加を拒否, true: 参加を承認"
     t.index ["project_id"], name: "index_participants_on_project_id"
     t.index ["user_id"], name: "index_participants_on_user_id"
   end

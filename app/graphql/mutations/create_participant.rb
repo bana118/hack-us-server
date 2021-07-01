@@ -9,11 +9,19 @@ module Mutations
 
     argument :uid, String, required: true
     argument :project_id, ID, required: true
+    argument :user_approved, Boolean, required: false
+    argument :owner_approved, Boolean, required: false
 
-    def resolve(uid:, project_id:)
-      user = User.find_by(uid: uid)
-      project = Project.find(project_id)
-      participant = Participant.create(user: user, project: project)
+    def resolve(**args)
+      user = User.find_by(uid: args[:uid])
+      project = Project.find(args[:project_id])
+
+      args.delete(:uid)
+      args.delete(:project_id)
+      args.store(:user, user)
+      args.store(:project, project)
+      
+      participant = Participant.create(args)
 
       if participant.save
         { participant: participant }

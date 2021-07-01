@@ -20,7 +20,7 @@ module Mutations
       args.delete(:project_id)
       args.store(:user, user)
       args.store(:project, project)
-      
+
       participant = Participant.create(args)
 
       if participant.save

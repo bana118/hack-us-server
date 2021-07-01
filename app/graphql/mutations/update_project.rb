@@ -21,8 +21,14 @@ module Mutations
 
     def resolve(**args)
       project = Project.find(args[:id])
+      languages = args[:languages]
       args.delete(:id)
+      args.delete(:languages)
+      project.languages.clear
       project.update!(args)
+      languages.each do |language|
+        project.languages.create(name: language[:name], color: language[:color])
+      end
 
       { project: project }
     rescue ActiveRecord::RecordInvalid => e

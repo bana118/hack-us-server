@@ -7,10 +7,15 @@ module Mutations
     field :favorite, Types::FavoriteType, null: false
     field :result, Boolean, null: true
 
-    argument :id, ID, required: true
+    argument :uid, String, required: true
+    argument :project_id, ID, required: true
 
-    def resolve(**args)
-      favorite = Favorite.find(args[:id])
+    # uid, project_id をもとに検索
+    def resolve(uid:, project_id:)
+      user = User.find_by(uid: uid)
+      project = Project.find(project_id)
+
+      favorite = Favorite.find_by(user: user, project: project)
       favorite.destroy
       {
         favorite: favorite,

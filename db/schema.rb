@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_07_01_232420) do
 
-  create_table "contributions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "contributions", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "language", null: false
     t.string "color", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_07_01_232420) do
     t.index ["user_id"], name: "index_contributions_on_user_id"
   end
 
-  create_table "favorites", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "favorites", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2021_07_01_232420) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "languages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "languages", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.string "name", null: false
     t.string "color", null: false
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2021_07_01_232420) do
     t.index ["project_id"], name: "index_languages_on_project_id"
   end
 
-  create_table "participants", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "participants", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2021_07_01_232420) do
     t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
-  create_table "projects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "projects", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2021_07_01_232420) do
     t.string "owner_uid", null: false
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

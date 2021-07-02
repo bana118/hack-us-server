@@ -56,7 +56,7 @@ module Types
     end
 
     field :project, Types::ProjectType, null: false do
-      argument :id, Int, required: true
+      argument :id, ID, required: true
     end
     def project(id:)
       Project.find(id)
